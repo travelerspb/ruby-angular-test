@@ -1,1 +1,17 @@
 Your answer here ☺
+
+record: {
+    custom_fields: {},
+    users_number: 0,
+    priority: 0
+}
+
+Priority raise check can be implemented in callbacks. Before saving data, a method can iterate all custom fields and
+update priority. This is straightforward solution, but not effective in terms of performance and might be hard to maintain
+because of implicit login in domain.
+
+I would prefer another method, to move this logic to the business layer and update labels not directly, but using
+custom method, like `set_custom_field`.
+
+Actual implementation here should depend on context. Where do we obtain fields to evaluate priority? How many custom fields
+could a record contain? What kind of data it might contain?

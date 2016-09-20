@@ -29,5 +29,25 @@ get '/' do
 end
 
 get '/data' do
-  TREE_DATA
+  raw_data = TREE_DATA.split("\n").map { |i| i.split(',')}
+
+  map = {}
+
+  raw_data.each do |x|
+    map[x[0]] = x
+  end
+
+  tree = {}
+
+  raw_data.each do |x|
+    pid = x[2]
+    if pid == nil || !map.has_key?(pid)
+      (tree[raw_data[0]] ||= []) << x
+    else
+      (tree[map[pid]] ||= []) << x
+    end
+  end
+  tree.to_json
 end
+
+

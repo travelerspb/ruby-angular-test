@@ -1,35 +1,38 @@
 require 'set'
-class PQ
+
+class SortedItemSet
   def initialize
-    @x = SortedSet.new
+    @set = SortedSet.new
   end
-  class El
-    attr_reader :p, :x
-    def initialize(p,x)
-      @p = p
-      @x = x
-    end
-    def <=>(y)
-      @p <=> y.p
+
+  # if Item might be user outside of the main class its better to refactor it to separate file
+  Item = Struct.new(:priority, :value) do
+    def <=>(other)
+      priority <=> other.priority
     end
   end
-  def add(item, priority)
-    @x.add(El.new(priority,item))
+
+  def add(value, priority)
+    raise ArgumentError unless priority.is_a? Integer
+    item_new = Item.new(priority, value)
+    @set.add(item_new)
   end
+
   def deQ
-    return unless item = @x.first
-    @x.delete(item)
-    item.x
+    item = @set.first
+    return unless item
+    @set.delete(item)
+    item.value
   end
 end
 
 # Tests
-q = PQ.new
+q = SortedItemSet.new
 q.add(42, 21)
-q.add("a", 15)
+q.add('a', 15)
 q.add(:dog, 37)
 puts q.deQ # check this is a
-q.add("a", 42)
+q.add('a', 42)
 puts q.deQ # check this is 42
 puts q.deQ # check this is dog
 puts q.deQ # check this is a
