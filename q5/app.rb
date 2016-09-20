@@ -29,25 +29,18 @@ get '/' do
 end
 
 get '/data' do
-  raw_data = TREE_DATA.split("\n").map { |i| i.split(',')}
+  raw_data = TREE_DATA.split("\n").map { |i| i.split(',')}.map {|x| {:id=>x[0], :title=>x[1], :parent_id=>x[2]}}
 
-  map = {}
+  tree = Hash.new { |h,k| h[k] = { :title => nil, :children => [ ] } }
 
-  raw_data.each do |x|
-    map[x[0]] = x
+  raw_data.each do |n|
+    id, parent_id = n.values_at(:id, :parent_id)
+    tree[id][:title] = n[:title]
+    tree[parent_id][:children].push(tree[id])
   end
 
-  tree = {}
-
-  raw_data.each do |x|
-    pid = x[2]
-    if pid == nil || !map.has_key?(pid)
-      (tree[raw_data[0]] ||= []) << x
-    else
-      (tree[map[pid]] ||= []) << x
-    end
-  end
-  tree.to_json
+  tree[nil][:children].to_json
 end
+
 
 
