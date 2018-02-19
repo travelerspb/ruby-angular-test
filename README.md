@@ -1,4 +1,4 @@
-# ecoPortal hiring test
+# Hiring test I've done for one of my clients
 
 *Q1: The basics*
 
@@ -12,6 +12,8 @@ In ruby, implement ruby's `Array#flatten(n)` (without using `flatten`):
     squish([[1],2])     # [1, 2]
     squish([[1,[2]]],1) # [1, [2]]
 
+*Answer: q1.rb
+
 *Q2: A puzzle*
 
 Using either javascript or coffeescript, create a definition for `Chain`
@@ -23,6 +25,8 @@ such that (example given in coffeescript):
     foo.toString()          == "h"
     bar.toString()          == "hello"
     bar.ancestor.toString() == "hell"
+
+*Answer: q2.coffee
 
 *Q3: Reviewing/refactoring*
 
@@ -67,6 +71,8 @@ improvements.
     puts q.deQ # check this is a
     puts q.deQ # check this is nothing
   
+*Answer: q3.js
+
 *Q4: Modelling*
 
 In pseudocode with the intention of using a MongoDB backend, how would you
@@ -82,6 +88,8 @@ data in the custom fields for certain keywords. If found, these keywords will
 raise the priority.
 
 Briefly outline the strengths/weaknesses/capabilities of your approach.
+
+*Answer: q4.markdown
 
 *Q5: The kitchen sink*
 
@@ -120,6 +128,4 @@ coffeescript, simply remove these files and it'll fall back to the provided
 If there's any extra features or clever things you want to add, we'd love to see
 them - but it's entirely optional.
 
-*All done!*
-
-When you're done, commit your changes using git and send this folder back to us.
+*Answer: /q5
